@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Lab_5
 {
@@ -33,6 +25,7 @@ namespace Lab_5
                 bmp.UnlockBits(data);
             }
         }
+
         bool texture = false;
         float AngleX = 0;
         float AngleY = 0;
@@ -41,11 +34,13 @@ namespace Lab_5
         PolygonMode mode = PolygonMode.Fill;
         Bitmap bmpTex;
 
+
         private void glControl1_Resize(object sender, EventArgs e)
         {
             SetupViewport();
             glControl1.Invalidate();
         }
+
 
         private void SetupViewport()
         {
@@ -72,6 +67,7 @@ namespace Lab_5
             AngleY = 0;
         }
 
+
         public static void LoadTexture(Bitmap bmp)
         {
             BitmapData data = bmp.LockBits(
@@ -84,10 +80,9 @@ namespace Lab_5
             bmp.UnlockBits(data);
         }
 
+
         private void glControl1_Paint(object sender, PaintEventArgs e)
         {
-
-
             GL.Translate(0, 0, -7 - 100);
             // очистка буферов цвета и глубины
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
@@ -99,12 +94,9 @@ namespace Lab_5
             GL.Rotate(AngleZ, 0.0, 0.0, 1.0);
 
             // формирование изображения
-
-
             // включаем режим наложения текстуры при нажатии на клавишу
             if (texture)
                 GL.Enable(EnableCap.Texture2D); 
-
 
             GL.Color3(Color.Red);
             GL.PolygonMode(MaterialFace.FrontAndBack, mode);
@@ -126,7 +118,6 @@ namespace Lab_5
             GL.End();
 
 
-
             r = 0.1;
             GL.Begin(PrimitiveType.QuadStrip);
             for (int i = 0; i <= n; i++)
@@ -139,6 +130,7 @@ namespace Lab_5
                 GL.TexCoord2((double)i / n, -0.6); GL.Vertex3(x, y, -0.6);
             }
             GL.End();
+
 
             r = 0.14;
             GL.Begin(PrimitiveType.TriangleFan);
@@ -154,7 +146,6 @@ namespace Lab_5
             GL.End();
 
 
-
             r = 0.14;
             GL.Begin(PrimitiveType.QuadStrip); // задаем тип примитивов
             for (int i = 0; i <= n; i++)
@@ -168,6 +159,7 @@ namespace Lab_5
                 GL.TexCoord2((double)i / n, -0.35); GL.Vertex3(x, y, -0.35);
             }
             GL.End();
+
 
             r = 0.3;
             GL.Begin(PrimitiveType.TriangleFan);
@@ -212,7 +204,6 @@ namespace Lab_5
             GL.End();
 
 
-
             r = 0.2;
             GL.Begin(PrimitiveType.QuadStrip); // задаем тип примитивов
             for (int i = 0; i <= n; i++)
@@ -227,6 +218,7 @@ namespace Lab_5
             }
             GL.End();
 
+
             r = 0.45;
             GL.Begin(PrimitiveType.TriangleFan);
             GL.Vertex3(0, 0, 0.5);
@@ -239,7 +231,6 @@ namespace Lab_5
                 GL.Vertex3(x, y, 0.5);
             }
             GL.End();
-
 
 
             //длинная палка
@@ -270,7 +261,6 @@ namespace Lab_5
                 GL.Vertex3(x, y, 0.7);
             }
             GL.End();
-
 
 
             GL.Disable(EnableCap.Texture2D);
